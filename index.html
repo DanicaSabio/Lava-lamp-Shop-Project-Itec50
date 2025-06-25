@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>D'Loramexs Lamp</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: whitesmoke;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: purple;
+      color: white;
+      padding: 15px 20px;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      width: 60px;
+      height: auto;
+      margin-right: 15px;
+    }
+
+    header h1 {
+      font-size: 1.6em;
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 1.1em;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      padding: 30px 20px;
+    }
+
+    .filters {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .filters select {
+      padding: 8px 12px;
+      margin: 0 10px;
+      border-radius: 4px;
+      border: 1px solid white;
+    }
+
+    .lamp-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .lamp {
+      background: white;
+      border: 1px solid blueviolet;
+      width: 200px;
+      padding: 15px;
+      text-align: center;
+      position: relative;
+    }
+
+    .lamp-slider {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .lamp-slider img,
+    .lamp-slider .lamp-description {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      transition: all 0.5s ease;
+    }
+
+    .lamp-slider .lamp-description {
+      background-color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      display: none;
+      text-align: left;
+      font-size: 0.95em;
+    }
+
+    .lamp-slider.active img {
+      display: none;
+    }
+
+    .lamp-slider.active .lamp-description {
+      display: block;
+    }
+
+    .lamp-price {
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 1em;
+      color: purple;
+    }
+
+    .add-to-cart {
+      margin-top: 10px;
+      background-color: purple;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .add-to-cart:hover {
+      background-color: purple;
+    }
+
+    form {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid white;
+    }
+
+    form button {
+      background-color: purple;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+
+    footer {
+      background: black;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: purple;
+      margin: 0 5px;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-container">
+    <div class="logo-title">
+      <img src="dloramexs.jpeg" alt="D'Loramexs Logo" class="logo">
+      <h1>D'Loramexs Lamp</h1>
+    </div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#products">Products</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section id="home" class="section">
+  <h2 style="text-align:center;">Welcome to D'Loramexs Lamp</h2>
+  <p style="text-align:center; max-width:600px; margin:auto;">
+    Discover handcrafted lava lamps that add color, motion, and personality to any space. Scroll down to shop our glowing collection!
+  </p>
+  <div style="text-align:center; margin-top:20px;">
+    <img src="dloramexs.jpeg" alt="D'Loramexs Display" style="width:60%; max-width:400px; border-radius:10px;">
+  </div>
+</section>
+
+<section id="products" class="section">
+  <h2 style="text-align:center;">Our Lamps</h2>
+
+  <div class="filters">
+    <label for="colorFilter">Sort by Color:</label>
+    <select id="colorFilter" onchange="filterLamps()">
+      <option value="all">All</option>
+      <option value="red">Red</option>
+      <option value="blue">Blue</option>
+      <option value="green">Green</option>
+      <option value="purple">Purple</option>
+      <option value="white">White</option>
+      <option value="rainbow">Rainbow</option>
+    </select>
+
+    <label for="sizeFilter">Sort by Size:</label>
+    <select id="sizeFilter" onchange="filterLamps()">
+      <option value="all">All</option>
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+    </select>
+  </div>
+
+  <div class="lamp-container">
+    <div class="lamp" data-color="purple" data-size="small">
+      <div class="lamp-slider" onclick="toggleSlide(this)">
+        <img src="purple.jpeg" alt="Purple Lamp">
+        <div class="lamp-description">
+          <h3>Amethyst Lilac Lamp</h3>
+          <p>Gives off a calm violet glow, perfect for relaxing bedrooms and chill spaces.</p>
+          <p>Mini/Small</p>
+          <p>11-2 in (28-30 cm)</p>
+        </div>
+      </div>
+      <div class="lamp-price">₱299.99</div>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+
+    <div class="lamp" data-color="red" data-size="medium">
+      <div class="lamp-slider" onclick="toggleSlide(this)">
+        <img src="redd.jpeg" alt="Red Lamp">
+        <div class="lamp-description">
+          <h3>Ruby Red Lamp</h3>
+          <p>Fiery and bold, this lamp adds warmth and energy to your room.</p>
+          <p>Medium</p>
+          <p>14-16 in (35-40 cm)</p>
+        </div>
+      </div>
+      <div class="lamp-price">₱349.99</div>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+
+    <div class="lamp" data-color="blue" data-size="medium">
+      <div class="lamp-slider" onclick="toggleSlide(this)">
+        <img src="blueee.jpeg" alt="Blue Lamp">
+        <div class="lamp-description">
+          <h3>Sapphire Blue Lamp</h3>
+          <p>Cool and serene, this blue glow is ideal for study and focus zones.</p>
+          <p>Medium</p>
+          <p>14-16 in (35-40 cm)</p>
+        </div>
+      </div>
+      <div class="lamp-price">₱349.99</div>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+
+    <div class="lamp" data-color="white" data-size="medium">
+      <div class="lamp-slider" onclick="toggleSlide(this)">
+        <img src="white.jpeg" alt="White Lamp">
+        <div class="lamp-description">
+          <h3>Moonstone White Lamp</h3>
+          <p>Clean and modern look. A great addition to any minimalist room.</p>
+          <p>Medium</p>
+          <p>14-16 in (35-40 cm)</p>
+        </div>
+      </div>
+      <div class="lamp-price">₱349.99</div>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+
+    <div class="lamp" data-color="green" data-size="large">
+      <div class="lamp-slider" onclick="toggleSlide(this)">
+        <img src="green.jpeg" alt="Green Lamp">
+        <div class="lamp-description">
+          <h3>Emerald Green Lamp</h3>
+          <p>Inspired by nature, this vibrant green lamp refreshes your space.</p>
+          <p>Large</p>
+          <p>17-18 in (43-46 cm)</p>
+        </div>
+      </div>
+      <div class="lamp-price">₱499.99</div>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+
+    <div class="lamp" data-color="rainbow" data-size="large">
+      <div class="lamp-slider" onclick="toggleSlide(this)">
+        <img src="rainbow.jpeg" alt="Rainbow Lamp">
+        <div class="lamp-description">
+          <h3>Rainbow Quartz Lamp</h3>
+          <p>Multicolor magic! Lights up in all colors to suit every mood.</p>
+          <p>Large</p>
+          <p>17-18 in (43-46 cm)</p>
+        </div>
+      </div>
+      <div class="lamp-price">₱549.99</div>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="section">
+  <h2>About Us</h2>
+  <p>How it's Made</p>
+  <p>every lamp is hand-crafted, using wax and liquid inside a glass container. A heat source warms the wax, creating the signature glowing and flowing motion that makes lava lamps so mesmerizing.</p>
+</section>
+
+<section id="contact" class="section">
+  <h2>Contact Us</h2>
+  <form>
+    <input type="text" placeholder="Full Name" required>
+    <input type="email" placeholder="Email Address" required>
+    <textarea placeholder="Your Message" rows="5" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+</section>
+
+<footer>
+  <p>© 2025 D'Loramexs Lamp | Follow us on 
+    <a href="https://www.instagram.com/dloramexs/" target="_blank">Instagram</a>,
+    <a href="https://www.facebook.com/profile.php?id=61577694500863" target="_blank">Facebook</a>,
+    and <a href="https://www.tiktok.com/@dloramexs" target="_blank">TikTok</a>
+  </p>
+</footer>
+
+<script>
+  function toggleSlide(element) {
+    element.classList.toggle('active');
+  }
+
+  function filterLamps() {
+    const color = document.getElementById('colorFilter').value;
+    const size = document.getElementById('sizeFilter').value;
+    const lamps = document.querySelectorAll('.lamp');
+
+    lamps.forEach(lamp => {
+      const lampColor = lamp.getAttribute('data-color');
+      const lampSize = lamp.getAttribute('data-size');
+      const colorMatch = (color === 'all' || lampColor === color);
+      const sizeMatch = (size === 'all' || lampSize === size);
+      lamp.style.display = (colorMatch && sizeMatch) ? 'block' : 'none';
+    });
+  }
+
+  function toggleSlide(element) {
+    element.classList.toggle('active');
+  }
+
+  function filterLamps() {
+    const color = document.getElementById('colorFilter').value;
+    const size = document.getElementById('sizeFilter').value;
+    const lamps = document.querySelectorAll('.lamp');
+
+    lamps.forEach(lamp => {
+      const lampColor = lamp.getAttribute('data-color');
+      const lampSize = lamp.getAttribute('data-size');
+      const colorMatch = (color === 'all' || lampColor === color);
+      const sizeMatch = (size === 'all' || lampSize === size);
+      lamp.style.display = (colorMatch && sizeMatch) ? 'block' : 'none';
+    });
+  }
+
+  // Enable Add to Cart button functionality
+  const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const lampName = button.closest('.lamp').querySelector('.lamp-description h3').innerText;
+      alert(`Added "${lampName}" to cart!`);
+    });
+  });
+</script>
+
+</body>
+</html>
